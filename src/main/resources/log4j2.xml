@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" strict="true">
+    <Properties>
+        <Property name="path">logs/common</Property>
+    </Properties>
+    <Appenders>
+        <Appender type="Console" name="STDOUT">
+            <Layout type="PatternLayout" pattern="%d %highlight{[%-5p]} %c:%L %m%n" charset="UTF-8"/>
+        </Appender>
+        <RollingFile name="ROLFILE" fileName="${path}.log" filePattern="${path}-%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d %p [%t] %c{1.}:%L %m%n</Pattern>
+                <Charset>UTF-8</Charset>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="STDOUT" level="info"/>
+            <AppenderRef ref="ROLFILE" level="debug"/>
+        </Root>
+    </Loggers>
+</Configuration>
