@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 
-abstract public class BotHandler {
+abstract public class BotWebHookHandler {
 
     protected boolean isStartMessage(Message message) {
         return message != null && message.text() != null && message.text().startsWith("/start");

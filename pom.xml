@@ -25,6 +25,7 @@
         <telegram.bot.spring.boot.starter.version>4.1</telegram.bot.spring.boot.starter.version>
         <java-telegram-bot-api>4.1.0</java-telegram-bot-api>
         <log4j>2.11.1</log4j>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -80,11 +81,20 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <!-- Spring data MongoDB -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
