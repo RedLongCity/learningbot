@@ -12,47 +12,55 @@ public class Translate {
     @Id
     public String id;
 
-    public String EngWordId;
+    public String engWordId;
 
-    public List<String> RusWordIds;
+    public List<String> rusWordIds;
 
     public Translate() {
     }
 
     public Translate(EngWord engWord, List<RusWord> rusWords) {
-        this.EngWordId = engWord.getId();
-        this.RusWordIds = Objects.isNull(rusWords)
+        this.engWordId = engWord.getId();
+        this.rusWordIds = Objects.isNull(rusWords)
                 ? null
                 : rusWords.stream().map(RusWord::getId).collect(Collectors.toList());
     }
 
     public Translate(EngWord engWord) {
         if (!Objects.isNull(engWord))
-            this.EngWordId = engWord.getId();
+            this.engWordId = engWord.getId();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEngWordId() {
-        return EngWordId;
+        return engWordId;
     }
 
     public void setEngWordId(String engWordId) {
-        EngWordId = engWordId;
+        engWordId = engWordId;
     }
 
     public List<String> getRusWordIds() {
-        return RusWordIds;
+        return rusWordIds;
     }
 
     public void setRusWordIds(List<String> rusWordIds) {
-        RusWordIds = rusWordIds;
+        rusWordIds = rusWordIds;
     }
 
     public Translate addRusWord(RusWord rusWord) {
-        if (Objects.isNull(this.RusWordIds)) {
-            this.RusWordIds = new ArrayList<>();
+        if (Objects.isNull(this.rusWordIds)) {
+            this.rusWordIds = new ArrayList<>();
         }
         if (!Objects.isNull(rusWord))
-            this.RusWordIds.add(rusWord.getId());
+            this.rusWordIds.add(rusWord.getId());
         return this;
     }
 
@@ -60,8 +68,8 @@ public class Translate {
     public String toString() {
         return "Translate{" +
                 "id='" + id + '\'' +
-                ", EngWordId='" + EngWordId + '\'' +
-                ", RusWordIds=" + RusWordIds +
+                ", EngWordId='" + engWordId + '\'' +
+                ", RusWordIds=" + rusWordIds +
                 '}';
     }
 }
