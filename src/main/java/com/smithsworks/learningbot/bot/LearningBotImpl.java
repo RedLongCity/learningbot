@@ -6,17 +6,13 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
-import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.smithsworks.learningbot.utils.EnvironmentUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Qualifier("simple")
@@ -84,6 +80,12 @@ public class LearningBotImpl extends BotWebHookHandler implements LearningBot {
         }
         log.info("Message: \"{}\"", message);
         bot.execute(new SendMessage(chatId, message).replyMarkup(
+//                new ReplyKeyboardMarkup(
+//                        new String[]{"first row button1", "first row button2"},
+//                        new String[]{"second row button1", "second row button2"})
+//                        .oneTimeKeyboard(true)   // optional
+//                        .resizeKeyboard(true)    // optional
+//                        .selective(true)        // optiona
                 new InlineKeyboardMarkup(
                         new InlineKeyboardButton[]{
                                 new InlineKeyboardButton("url").url("www.google.com"),
@@ -97,8 +99,9 @@ public class LearningBotImpl extends BotWebHookHandler implements LearningBot {
 //                                new KeyboardButton("location").requestLocation(true)
 //                        }
 //                ).resizeKeyboard(true)
-//        new ReplyKeyboardMarkup(new String[]{BUTTON_CB, BUTTON_EXCHANGE, BUTTON_OIL})
+
                 )
+//                        .replyMarkup(new ReplyKeyboardMarkup(new String[]{BUTTON_CB, BUTTON_EXCHANGE, BUTTON_OIL}))
         );
     }
 

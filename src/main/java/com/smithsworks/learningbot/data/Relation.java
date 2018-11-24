@@ -9,6 +9,8 @@ public class Relation {
 
     public String engWordId;
 
+    public String rusWordId;
+
     public Integer weight;
 
     public Relation() {
@@ -21,6 +23,12 @@ public class Relation {
 
     public Relation(String engWordId, Integer weight) {
         this.engWordId = engWordId;
+        this.weight = weight;
+    }
+
+    public Relation(String engWordId, String rusWordId, Integer weight) {
+        this.engWordId = engWordId;
+        this.rusWordId = rusWordId;
         this.weight = weight;
     }
 
@@ -56,11 +64,20 @@ public class Relation {
         this.weight--;
     }
 
+    public String getRusWordId() {
+        return rusWordId;
+    }
+
+    public void setRusWordId(String rusWordId) {
+        this.rusWordId = rusWordId;
+    }
+
     @Override
     public String toString() {
         return "Relation{" +
                 "id='" + id + '\'' +
                 ", engWordId='" + engWordId + '\'' +
+                ", rusWordId='" + rusWordId + '\'' +
                 ", weight=" + weight +
                 '}';
     }

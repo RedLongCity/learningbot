@@ -16,6 +16,7 @@ import java.util.List;
 public class RelationTest {
 
     private static final String ENGWORDIDFIRST = "ENGWORDIDFIRST";
+    private static final String RUSWORDIDFIRST = "RUSWORDIDFIRST";
 
     @Autowired
     private RelationRepository relationRepository;
@@ -24,12 +25,12 @@ public class RelationTest {
     public void saveTest() {
         List<Relation> relations = new ArrayList<>();
         for (int i = 1; i < 5; i++) {
-            relations.add(relationRepository.save(new Relation(ENGWORDIDFIRST, i)));
+            relations.add(relationRepository.save(new Relation(ENGWORDIDFIRST, RUSWORDIDFIRST, i)));
         }
-        List<Relation> list = relationRepository.findTop3RelationsByEngWordId(ENGWORDIDFIRST);
+        List<Relation> list = relationRepository.findTop3ByEngWordIdOrderByWeightDesc(ENGWORDIDFIRST);
         Assert.assertFalse(CollectionUtils.isEmpty(list));
         relations.forEach(relation -> relationRepository.delete(relation));
         Assert.assertTrue(CollectionUtils.isEmpty(
-                relationRepository.findTop3RelationsByEngWordId(ENGWORDIDFIRST)));
+                relationRepository.findTop3ByEngWordIdOrderByWeightDesc(ENGWORDIDFIRST)));
     }
 }
