@@ -1,6 +1,5 @@
 package com.smithsworks.learningbot.bot;
 
-import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 
@@ -17,6 +16,4 @@ abstract public class BotWebHookHandler {
     abstract void onWebhookUpdate(Update update);
 
     abstract String getToken();
-
-    abstract TelegramBot getBot();
 }

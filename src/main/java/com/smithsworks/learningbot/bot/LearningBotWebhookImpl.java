@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SetWebhook;
 import com.smithsworks.learningbot.utils.EnvironmentUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,7 +71,7 @@ public class LearningBotWebhookImpl extends BotWebHookHandler implements Learnin
     }
 
     @Override
-    TelegramBot getBot() {
+    public TelegramBot getBot() {
         return this.bot;
     }
 }

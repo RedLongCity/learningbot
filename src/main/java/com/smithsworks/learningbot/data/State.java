@@ -1,7 +1,9 @@
 package com.smithsworks.learningbot.data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class State {
 
@@ -31,6 +33,13 @@ public class State {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public State addHandlingPoint(HandlingPoint handlingPoint) {
+        if (Objects.isNull(this.extra))
+            this.extra = new ArrayList<>(0);
+        this.extra.add(handlingPoint);
+        return this;
     }
 
     @Override

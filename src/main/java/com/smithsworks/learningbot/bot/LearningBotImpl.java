@@ -8,15 +8,21 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.SendResponse;
+import com.smithsworks.learningbot.service.I18nService;
 import com.smithsworks.learningbot.utils.EnvironmentUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("simple")
 public class LearningBotImpl extends BotWebHookHandler implements LearningBot {
+
+    @Autowired
+    private I18nService i18nService;
 
     private static final Logger log = LogManager.getLogger();
 
@@ -79,7 +85,7 @@ public class LearningBotImpl extends BotWebHookHandler implements LearningBot {
                 message = text + "_returned";
         }
         log.info("Message: \"{}\"", message);
-        bot.execute(new SendMessage(chatId, message).replyMarkup(
+        SendResponse response = bot.execute(new SendMessage(chatId, message).replyMarkup(
 //                new ReplyKeyboardMarkup(
 //                        new String[]{"first row button1", "first row button2"},
 //                        new String[]{"second row button1", "second row button2"})
@@ -90,8 +96,22 @@ public class LearningBotImpl extends BotWebHookHandler implements LearningBot {
                         new InlineKeyboardButton[]{
                                 new InlineKeyboardButton("url").url("www.google.com"),
                                 new InlineKeyboardButton("callback_data").callbackData("callback_data"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
                                 new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
-                        })
+                        },
+                        new InlineKeyboardButton[]{
+                                new InlineKeyboardButton("url").url("www.google.com"),
+                                new InlineKeyboardButton("callback_data").callbackData("callback_data"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query"),
+                                new InlineKeyboardButton("switch_inline_query").switchInlineQuery("switch_inline_query")
+                        }
+                        )
 //                new ReplyKeyboardMarkup(
 //                        new KeyboardButton[]{
 //                                new KeyboardButton("text"),
@@ -111,7 +131,7 @@ public class LearningBotImpl extends BotWebHookHandler implements LearningBot {
     }
 
     @Override
-    TelegramBot getBot() {
+    public TelegramBot getBot() {
         return this.bot;
     }
 }

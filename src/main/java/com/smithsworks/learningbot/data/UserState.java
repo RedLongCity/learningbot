@@ -2,8 +2,6 @@ package com.smithsworks.learningbot.data;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.Objects;
-
 public class UserState {
 
     @Id
@@ -17,14 +15,17 @@ public class UserState {
 
     public State previousState;
 
+    public String locale;
+
     public UserState() {
     }
 
-    public UserState(String userName, Integer telegramId, State currentState, State previousState) {
+    public UserState(String userName, Integer telegramId, State currentState, State previousState, String locale) {
         this.userName = userName;
         this.telegramId = telegramId;
         this.currentState = currentState;
         this.previousState = previousState;
+        this.locale = locale;
     }
 
     public String getId() {
@@ -65,6 +66,14 @@ public class UserState {
 
     public void setPreviousState(State previousState) {
         this.previousState = previousState;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     @Override
