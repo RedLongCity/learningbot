@@ -4,11 +4,9 @@ import com.pengrad.telegrambot.model.request.Keyboard;
 
 public interface Builder {
 
-    Keyboard getKeyboard();
+    Keyboard constructKeyboard();
 
-    void constructKeyboard();
-
-    void constructCustomKeyboard(String... parameters);
+    Keyboard constructCustomKeyboard(String... parameters);
 
     Builder addRow();
 

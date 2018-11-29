@@ -1,5 +1,6 @@
 package com.smithsworks.learningbot.handler;
 
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.smithsworks.learningbot.data.HandlingPoint;
 import com.smithsworks.learningbot.data.State;
@@ -24,25 +25,40 @@ public class Splitter {
 
     @Qualifier(NEW_WORD_MARKER)
     @Autowired
-    private UpdateHandler newWorldUpdateHanler;
+    private UpdateHandler newWorldUpdateHandler;
 
     @Qualifier(MAIN_MENU_MARKER)
     @Autowired
-    private UpdateHandler mainMenuUpdateHanler;
+    private UpdateHandler mainMenuUpdateHandler;
 
     public void split(Update update) {//TODO realise start logic
-        UserState userState = userStateService.getFirstNonNull(update);
-        State newState = null;
+        State newState;
+        UserState userState;
+        userState = userStateService.getFirstNonNull(update);
         HandlingPoint point = HandlingPointUtils.getSelectedHandlingPoint(userState, update);
         switch (point.getHandlerName()) {
-            case NEW_WORD_MARKER :
-                newState = newWorldUpdateHanler.handle(userState, update);
+            case NEW_WORD_MARKER:
+                newState = newWorldUpdateHandler.handle(userState, update);
                 break;
-            case MAIN_MENU_MARKER :
-                newState = mainMenuUpdateHanler.handle(userState, update);
+            case MAIN_MENU_MARKER:
+                newState = mainMenuUpdateHandler.handle(userState, update);
                 break;
+            default:
+                newState = mainMenuUpdateHandler.handle(null, update);
+                userState = initNewUserState(update);
         }
         userStateService.updateUserState(userState, newState);
+    }
+
+    private UserState initNewUserState(Update update) {
+        Message message = update.message();
+        return new UserState(
+                message.from().username(),
+                message.from().id(),
+                null,
+                null,
+                "ru"
+        );
     }
 
 }

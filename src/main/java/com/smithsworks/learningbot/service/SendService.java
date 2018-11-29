@@ -22,7 +22,7 @@ public class SendService {
     }
 
     public boolean sendMessage(Update update, Builder builder, String message) {
-        Keyboard keyboard = builder.getKeyboard();
+        Keyboard keyboard = builder.constructKeyboard();
         Long chatId = update.message().chat().id();
         SendResponse response = learningBot.getBot().execute(new SendMessage(chatId, message).replyMarkup(keyboard));
         return response.isOk() && response.errorCode() == 0;

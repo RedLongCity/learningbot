@@ -16,23 +16,19 @@ import java.util.Objects;
 @Scope("prototype")//TODO change to request
 public class InlineKeyboardBuilder implements Builder {
 
-    private Keyboard keyboard;
     private List<InlineKeyboardButton[]> rows;
     private List<InlineKeyboardButton> currentRow;
 
     @Override
-    public Keyboard getKeyboard() {
-        return this.keyboard;
-    }
-
-    @Override
-    public void constructKeyboard() {
+    public Keyboard constructKeyboard() {
         this.addRow();
-        this.keyboard = new InlineKeyboardMarkup((InlineKeyboardButton[]) this.rows.toArray());
+        InlineKeyboardButton[][] in = new InlineKeyboardButton[this.rows.size()][];
+        return new InlineKeyboardMarkup(this.rows.toArray(in));
     }
 
     @Override
-    public void constructCustomKeyboard(String... parameters) {
+    public Keyboard constructCustomKeyboard(String... parameters) {
+        return null;
     }
 
     @Override
@@ -42,7 +38,8 @@ public class InlineKeyboardBuilder implements Builder {
         if (Objects.isNull(currentRow))
             currentRow = new ArrayList<>(0);
         else {
-            this.rows.add((InlineKeyboardButton[]) currentRow.toArray());
+            InlineKeyboardButton[] in = new InlineKeyboardButton[currentRow.size()];
+            this.rows.add(currentRow.toArray(in));
             this.currentRow = new ArrayList<>(0);
         }
         return this;

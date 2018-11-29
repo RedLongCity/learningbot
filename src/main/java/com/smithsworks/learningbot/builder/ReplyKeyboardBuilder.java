@@ -16,23 +16,18 @@ import java.util.Objects;
 @Scope("prototype")//TODO change to request
 public class ReplyKeyboardBuilder implements Builder {
 
-    private Keyboard keyboard;
     private List<String[]> rows;
     private List<String> currentRow;
 
     @Override
-    public Keyboard getKeyboard() {
-        return this.keyboard;
+    public Keyboard constructKeyboard() {
+        return new ReplyKeyboardMarkup((String[]) rows.toArray());
     }
 
     @Override
-    public void constructKeyboard() {
-        this.keyboard = new ReplyKeyboardMarkup((String[]) rows.toArray());
-    }
-
-    @Override
-    public void constructCustomKeyboard(String... parameters) {
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup((String[]) rows.toArray());
+    public Keyboard constructCustomKeyboard(String... parameters) {
+        String[][] in = new String[this.rows.size()][];
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(rows.toArray(in));
         if (!Objects.isNull(parameters)) {
             if (Arrays.stream(parameters).anyMatch("oneTimeKeyboard"::equalsIgnoreCase))
                 replyKeyboardMarkup.oneTimeKeyboard(true);
@@ -41,7 +36,7 @@ public class ReplyKeyboardBuilder implements Builder {
             if (Arrays.stream(parameters).anyMatch("selective"::equalsIgnoreCase))
                 replyKeyboardMarkup.selective(true);
         }
-        this.keyboard = replyKeyboardMarkup;
+        return replyKeyboardMarkup;
     }
 
     @Override

@@ -9,18 +9,21 @@ import java.util.Objects;
 public class HandlingPointUtils {
 
     public static HandlingPoint getSelectedHandlingPoint(UserState userState, Update update) {
-        String selected = update.message().text();
-        HandlingPoint point = userState.getCurrentState().getExtra()
-                .stream()
-                .filter(handlingPoint -> handlingPoint.getValue().equalsIgnoreCase(selected))
-                .findAny()
-                .orElse(null);
-        if (Objects.isNull(point))
+        HandlingPoint point = new HandlingPoint("default");
+        if (!Objects.isNull(userState) && !Objects.isNull(update)) {
+            String selected = update.message().text();
             point = userState.getCurrentState().getExtra()
                     .stream()
-                    .filter(handlingPoint -> "default".equalsIgnoreCase(handlingPoint.getValue()))
+                    .filter(handlingPoint -> handlingPoint.getValue().equalsIgnoreCase(selected))
                     .findAny()
-                    .get();
+                    .orElse(null);
+            if (Objects.isNull(point))
+                point = userState.getCurrentState().getExtra()
+                        .stream()
+                        .filter(handlingPoint -> "default".equalsIgnoreCase(handlingPoint.getValue()))
+                        .findAny()
+                        .get();
+        }
         return point;
     }
 }

@@ -24,6 +24,9 @@ public class UserStateService {
     }
 
     public void updateUserState(UserState userState, State newState) {
+        if (Objects.isNull(userState)) {
+
+        }
         userState.setPreviousState(userState.getPreviousState());
         userState.setCurrentState(newState);
         repository.save(userState);

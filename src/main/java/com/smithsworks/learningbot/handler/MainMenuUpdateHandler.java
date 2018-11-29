@@ -11,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
  * https://www.draw.io/#HRedLongCity%2Fds159%2Fmaster%2FMainMenuScheme.xml
  */
 @Service
 @Qualifier("mainMenu")
 public class MainMenuUpdateHandler implements UpdateHandler {
+
+    public static final String HANDLER_NAME = "mainMenu";
 
     @Qualifier("inline")
     @Autowired
@@ -31,9 +35,9 @@ public class MainMenuUpdateHandler implements UpdateHandler {
     @Override
     public State handle(UserState userState, Update update) {
         State newState = new State();
-        constructMainMenu(userState.getLocale(), newState);
-        boolean wasSended = sendService.sendMessage(update, builder);
-        return wasSended ? newState : null;
+        constructMainMenu(Objects.isNull(userState) ? "ru" : userState.getLocale(), newState);
+        boolean wasSent = sendService.sendMessage(update, builder);
+        return wasSent ? newState : null;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class MainMenuUpdateHandler implements UpdateHandler {
         String startTraining = i18nService.getI18nString("main.menu.start.training", locale);
         String addNewWord = i18nService.getI18nString("main.menu.add.word", locale);
         String addNewCollection = i18nService.getI18nString("main.menu.add.collection", locale);
-        String settings = i18nService.getI18nString("main.menu.settins", locale);
+        String settings = i18nService.getI18nString("main.menu.settings", locale);
         builder.addRow()
                 .addButton(startTraining)
                 .addButton(addNewWord)
@@ -53,9 +57,9 @@ public class MainMenuUpdateHandler implements UpdateHandler {
                 .addButton(addNewCollection)
                 .addButton(settings);
         newState
-                .addHandlingPoint(new HandlingPoint("mainMenu", "startTraining", startTraining))
-                .addHandlingPoint(new HandlingPoint("mainMenu", "addNewWord", addNewWord))
-                .addHandlingPoint(new HandlingPoint("mainMenu", "addNewCollection", addNewCollection))
-                .addHandlingPoint(new HandlingPoint("mainMenu", "settings", settings));
+                .addHandlingPoint(new HandlingPoint(HANDLER_NAME, "startTraining", startTraining))
+                .addHandlingPoint(new HandlingPoint(HANDLER_NAME, "addNewWord", addNewWord))
+                .addHandlingPoint(new HandlingPoint(HANDLER_NAME, "addNewCollection", addNewCollection))
+                .addHandlingPoint(new HandlingPoint(HANDLER_NAME, "settings", settings));
     }
 }
