@@ -15,6 +15,11 @@ public class HandlingPoint {
         this.handlerName = handlerName;
     }
 
+    public HandlingPoint(String handlerName, String methodName) {
+        this.handlerName = handlerName;
+        this.methodName = methodName;
+    }
+
     public HandlingPoint(String handlerName, String methodName, String value) {
         this.handlerName = handlerName;
         this.methodName = methodName;

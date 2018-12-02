@@ -9,9 +9,9 @@ import java.util.Objects;
 public class HandlingPointUtils {
 
     public static HandlingPoint getSelectedHandlingPoint(UserState userState, Update update) {
-        HandlingPoint point = new HandlingPoint("default");
+        HandlingPoint point = new HandlingPoint("default", "default");
         if (!Objects.isNull(userState) && !Objects.isNull(update)) {
-            String selected = update.message().text();
+            String selected = UpdateUtils.getMessageText(update);
             point = userState.getCurrentState().getExtra()
                     .stream()
                     .filter(handlingPoint -> handlingPoint.getValue().equalsIgnoreCase(selected))

@@ -47,7 +47,7 @@ public class InlineKeyboardBuilder implements Builder {
 
     @Override
     public Builder addButton(String s) {
-        this.currentRow.add(new InlineKeyboardButton(s));
+        this.addButton(s, "callback", s);
         return this;
     }
 
