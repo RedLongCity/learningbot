@@ -13,6 +13,8 @@ public class Relation {
 
     public Integer weight;
 
+    public Boolean isCorrect;
+
     public Relation() {
     }
 
@@ -30,6 +32,13 @@ public class Relation {
         this.engWordId = engWordId;
         this.rusWordId = rusWordId;
         this.weight = weight;
+    }
+
+    public Relation(String engWordId, String rusWordId, Integer weight, Boolean isCorrect) {
+        this.engWordId = engWordId;
+        this.rusWordId = rusWordId;
+        this.weight = weight;
+        this.isCorrect = isCorrect;
     }
 
     public String getId() {
@@ -72,6 +81,14 @@ public class Relation {
         this.rusWordId = rusWordId;
     }
 
+    public Boolean getCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(Boolean correct) {
+        isCorrect = correct;
+    }
+
     @Override
     public String toString() {
         return "Relation{" +
@@ -79,6 +96,7 @@ public class Relation {
                 ", engWordId='" + engWordId + '\'' +
                 ", rusWordId='" + rusWordId + '\'' +
                 ", weight=" + weight +
+                ", isCorrect=" + isCorrect +
                 '}';
     }
 }

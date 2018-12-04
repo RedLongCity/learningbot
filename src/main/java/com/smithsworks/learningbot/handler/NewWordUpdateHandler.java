@@ -6,6 +6,8 @@ import com.smithsworks.learningbot.data.HandlingPoint;
 import com.smithsworks.learningbot.data.State;
 import com.smithsworks.learningbot.data.UserState;
 import com.smithsworks.learningbot.service.I18nService;
+import com.smithsworks.learningbot.service.SendService;
+import com.smithsworks.learningbot.utils.HandlingPointUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,23 @@ public class NewWordUpdateHandler implements UpdateHandler {
     @Autowired
     private I18nService i18nService;
 
+    @Autowired
+    private SendService sendService;
+
     @Override
-    public State handle(UserState state, Update update) {
-        State result = null;
-        return result;
+    public State handle(UserState userState, Update update) {
+        HandlingPoint point = HandlingPointUtils.getSelectedHandlingPoint(userState, update);
+        StringBuilder message = new StringBuilder();
+        State newState = new State();
+        String locale = i18nService.getLocale(userState);
+        Builder builder = null;
+        switch (point.methodName) {
+            case "enteredWord":
+                builder = this.enteredWord(message, newState, locale);
+                break;
+        }
+        boolean wasSent = sendService.sendMessage(update, builder, message.toString());
+        return wasSent ? newState : null;
     }
 
     @Override
@@ -36,6 +51,12 @@ public class NewWordUpdateHandler implements UpdateHandler {
     @Override
     public Builder constructMainMenu(StringBuilder message, State newState, String locale) {
         message.append(i18nService.getI18nString("new.word.input.new.word", locale));
+        newState
+                .addHandlingPoint(new HandlingPoint(HANDLER_NAME, "enteredWord", "default"));
         return null;
+    }
+
+    private Builder enteredWord(StringBuilder message, State newState, String locale) {
+
     }
 }
