@@ -15,6 +15,8 @@ import java.util.Objects;
 public class I18nService {
 
     private static final Logger log = LogManager.getLogger();
+    public static final String ENGLOCALE = "ENG";
+    public static final String RULOCALE = "RU";
 
     @Autowired
     private MessageSourceAccessor messageSourceAccessor;
@@ -29,8 +31,16 @@ public class I18nService {
         return result;
     }
 
+    public String getRusString(String code) {
+        return getI18nString(code, RULOCALE);
+    }
+
+    public String getEngString(String code) {
+        return getI18nString(code, ENGLOCALE);
+    }
+
     public String getLocale(UserState userState) {
-        return Objects.isNull(userState) ? "ru" : userState.getLocale();
+        return Objects.isNull(userState) ? RULOCALE : userState.getLocale();
     }
 
 }

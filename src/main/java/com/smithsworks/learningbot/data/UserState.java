@@ -28,6 +28,13 @@ public class UserState {
         this.locale = locale;
     }
 
+    public UserState addStep(String commandName) {
+        State state = new State(commandName);
+        this.setPreviousState(this.getCurrentState());
+        this.setCurrentState(state);
+        return this;
+    }
+
     public String getId() {
         return id;
     }

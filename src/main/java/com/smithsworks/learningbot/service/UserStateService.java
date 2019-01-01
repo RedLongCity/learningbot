@@ -15,6 +15,10 @@ public class UserStateService {
     @Autowired
     private UserStateRepository repository;
 
+    public UserState saveUserState(UserState userState) {
+        return this.repository.save(userState);
+    }
+
     public UserState getFirstNonNull(User user) {
         UserState result;
         result = repository.findByTelegramId(user.getTelegramId());
@@ -28,4 +32,9 @@ public class UserStateService {
         userState.setCurrentState(newState);
         repository.save(userState);
     }
+
+    public void updateUserState(UserState userState) {
+        repository.save(userState);
+    }
+
 }
