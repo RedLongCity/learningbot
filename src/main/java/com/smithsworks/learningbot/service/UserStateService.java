@@ -1,10 +1,9 @@
 package com.smithsworks.learningbot.service;
 
-import com.pengrad.telegrambot.model.Update;
 import com.smithsworks.learningbot.data.State;
+import com.smithsworks.learningbot.data.User;
 import com.smithsworks.learningbot.data.UserState;
 import com.smithsworks.learningbot.data.UserStateRepository;
-import com.smithsworks.learningbot.utils.UpdateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +15,11 @@ public class UserStateService {
     @Autowired
     private UserStateRepository repository;
 
-    public UserState getFirstNonNull(Update update) {
+    public UserState getFirstNonNull(User user) {
         UserState result;
-        result = repository.findByTelegramId(UpdateUtils.getUserId(update));
+        result = repository.findByTelegramId(user.getTelegramId());
         if (Objects.isNull(result))
-            result = repository.findByUserName(UpdateUtils.getUserName(update));
+            result = repository.findByUserName(user.getUserName());
         return result;
     }
 

@@ -18,12 +18,16 @@ public class HandlingPointUtils {
                     .findAny()
                     .orElse(null);
             if (Objects.isNull(point))
-                point = userState.getCurrentState().getExtra()
-                        .stream()
-                        .filter(handlingPoint -> "default".equalsIgnoreCase(handlingPoint.getValue()))
-                        .findAny()
-                        .get();
+                point = getDefaultHandlingPoint(userState);
         }
         return point;
+    }
+
+    public static HandlingPoint getDefaultHandlingPoint(UserState userState) {
+        return userState.getCurrentState().getExtra()
+                .stream()
+                .filter(handlingPoint -> "default".equalsIgnoreCase(handlingPoint.getValue()))
+                .findAny()
+                .get();
     }
 }

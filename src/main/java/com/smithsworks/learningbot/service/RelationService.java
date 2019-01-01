@@ -14,7 +14,7 @@ public class RelationService {
     @Autowired
     private RelationRepository relationRepository;
 
-    public Relation saveNewRelation(Relation relation) {
+    public Relation saveOrGet(Relation relation) {
         Relation entity = relationRepository.findByEngWordIdAndRusWordId(
                 relation.getEngWordId(),
                 relation.getRusWordId()

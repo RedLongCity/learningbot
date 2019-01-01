@@ -1,6 +1,7 @@
 package com.smithsworks.learningbot.utils;
 
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.User;
 
 import java.util.Objects;
 
@@ -12,6 +13,10 @@ public class UpdateUtils {
 
     public static Integer getUserId(Update update) {
         return isCallBack(update) ? update.callbackQuery().from().id() : update.message().from().id();
+    }
+
+    public static User getUser(Update update) {
+        return isCallBack(update) ? update.callbackQuery().from() : update.message().from();
     }
 
     public static String getUserName(Update update) {

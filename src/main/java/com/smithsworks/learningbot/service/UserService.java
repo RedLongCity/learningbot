@@ -12,10 +12,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveNewUser(User user) {
-        User entity = userRepository.findByTelegramId(user.getTelegramId());
+    public User saveOrGet(com.pengrad.telegrambot.model.User user) {
+        User entity = userRepository.findByTelegramId(user.id());
         if (Objects.isNull(entity))
-            return userRepository.save(user);
+            return userRepository.save(new User(
+                    user.id(),
+                    user.firstName(),
+                    user.lastName(),
+                    user.username()
+            ));
         else
             return entity;
     }
@@ -29,5 +34,7 @@ public class UserService {
         user.addGroupId(group.getId());
         return userRepository.save(user);
     }
+
+
 
 }

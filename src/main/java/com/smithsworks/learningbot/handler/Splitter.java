@@ -4,9 +4,12 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.smithsworks.learningbot.data.HandlingPoint;
 import com.smithsworks.learningbot.data.State;
+import com.smithsworks.learningbot.data.User;
 import com.smithsworks.learningbot.data.UserState;
+import com.smithsworks.learningbot.service.UserService;
 import com.smithsworks.learningbot.service.UserStateService;
 import com.smithsworks.learningbot.utils.HandlingPointUtils;
+import com.smithsworks.learningbot.utils.UpdateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -31,10 +34,14 @@ public class Splitter {
     @Autowired
     private UpdateHandler mainMenuUpdateHandler;
 
+    @Autowired
+    private UserService userService;
+
     public void split(Update update) {//TODO realise start logic
+        User user = userService.saveOrGet(UpdateUtils.getUser(update));
         State newState;
         UserState userState;
-        userState = userStateService.getFirstNonNull(update);
+        userState = userStateService.getFirstNonNull(user);
         HandlingPoint point = HandlingPointUtils.getSelectedHandlingPoint(userState, update);
         switch (point.getHandlerName()) {
             case NEW_WORD_MARKER:

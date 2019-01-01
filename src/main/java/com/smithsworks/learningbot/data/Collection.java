@@ -11,13 +11,13 @@ public class Collection {
     @Id
     public String id;
 
-    public List<String> translateIds;
+    public List<String> relationsIds;
 
     public Collection() {
     }
 
-    public Collection(List<String> translateIds) {
-        this.translateIds = translateIds;
+    public Collection(List<String> relationsIds) {
+        this.relationsIds = relationsIds;
     }
 
     public String getId() {
@@ -28,24 +28,24 @@ public class Collection {
         this.id = id;
     }
 
-    public List<String> getTranslateIds() {
-        return translateIds;
+    public List<String> getRelationsIds() {
+        return relationsIds;
     }
 
-    public void setTranslateIds(List<String> translateIds) {
-        this.translateIds = translateIds;
+    public void setRelationsIds(List<String> relationsIds) {
+        this.relationsIds = relationsIds;
     }
 
     public void addTranslateId(String id) {
-        if (Objects.isNull(this.translateIds)) {
-            this.translateIds = new ArrayList<>();
+        if (Objects.isNull(this.relationsIds)) {
+            this.relationsIds = new ArrayList<>();
         }
-        this.translateIds.add(id);
+        this.relationsIds.add(id);
     }
 
-    public void addTranslateId(Translate translate) {
-        if (!Objects.isNull(translate)) {
-            this.addTranslateId(translate.getId());
+    public void addTranslateId(Relation relation) {
+        if (!Objects.isNull(relation)) {
+            this.addTranslateId(relation.getId());
         }
     }
 
@@ -53,7 +53,7 @@ public class Collection {
     public String toString() {
         return "Collection{" +
                 "id='" + id + '\'' +
-                ", translateIds=" + translateIds +
+                ", relationsIds=" + relationsIds +
                 '}';
     }
 }

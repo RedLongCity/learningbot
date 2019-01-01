@@ -13,7 +13,7 @@ public class RusWordService {
     @Autowired
     private RusWordRepository rusWordRepository;
 
-    public RusWord saveNewRusWord(RusWord rusWord) {
+    public RusWord saveOrGet(RusWord rusWord) {
         RusWord entity = rusWordRepository.findByWord(rusWord.getWord());
         if (Objects.isNull(entity))
             return rusWordRepository.save(rusWord);

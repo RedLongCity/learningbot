@@ -24,33 +24,33 @@ public class CollectionTest {
     @Autowired
     private RusWordRepository rusWordRepository;
 
-    @Autowired
-    private TranslateRepository translateRepository;
-
-    @Autowired
-    private CollectionRepository collectionRepository;
-
-    @Test
-    public void saveTest() {
-        EngWord test1 = engWordRepository.save(new EngWord(TEST1));
-        EngWord test2 = engWordRepository.save(new EngWord(TEST2));
-        RusWord test1Rus = rusWordRepository.save(new RusWord(TEST1RUS));
-        RusWord test2Rus = rusWordRepository.save(new RusWord(TEST2RUS));
-        Translate translate1 = new Translate(test1);
-        Translate translate2 = new Translate(test2);
-        translate1.addRusWord(test1Rus);
-        translate2.addRusWord(test2Rus);
-        translate1 = translateRepository.save(translate1);
-        translate2 = translateRepository.save(translate2);
-        Collection collection = new Collection();
-        collection.addTranslateId(translate1);
-        collection.addTranslateId(translate2);
-        collection = collectionRepository.save(collection);
-        Assert.assertFalse(Objects.isNull(collection));
-        collectionRepository.delete(collection);
-        Assert.assertTrue(Objects.isNull(collectionRepository
-                .findByTranslateIdsContaining(translate1.getId())));
-    }
+//    @Autowired
+//    private TranslateRepository translateRepository;
+//
+//    @Autowired
+//    private CollectionRepository collectionRepository;
+//
+//    @Test
+//    public void saveTest() {
+//        EngWord test1 = engWordRepository.save(new EngWord(TEST1));
+//        EngWord test2 = engWordRepository.save(new EngWord(TEST2));
+//        RusWord test1Rus = rusWordRepository.save(new RusWord(TEST1RUS));
+//        RusWord test2Rus = rusWordRepository.save(new RusWord(TEST2RUS));
+//        Translate translate1 = new Translate(test1);
+//        Translate translate2 = new Translate(test2);
+//        translate1.addRusWord(test1Rus);
+//        translate2.addRusWord(test2Rus);
+//        translate1 = translateRepository.save(translate1);
+//        translate2 = translateRepository.save(translate2);
+//        Collection collection = new Collection();
+//        collection.addTranslateId(translate1);
+//        collection.addTranslateId(translate2);
+//        collection = collectionRepository.save(collection);
+//        Assert.assertFalse(Objects.isNull(collection));
+//        collectionRepository.delete(collection);
+//        Assert.assertTrue(Objects.isNull(collectionRepository
+//                .findByTranslateIdsContaining(translate1.getId())));
+//    }
 
 
 }
